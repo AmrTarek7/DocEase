@@ -16,9 +16,13 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     providePrimeNG({
       theme: {
-        preset: Aura,
+        preset: Aura, // تعيين الثيم الخاص بـ PrimeNG
         options: {
-          darkModeSelector: '.my-app-dark',
+          darkModeSelector: '.app-dark',
+          cssLayer: {
+            name: 'primeng',
+            order: 'tailwind-base, primeng, tailwind-utilities', // ترتيب الـ CSS
+          },
         },
       },
     }),

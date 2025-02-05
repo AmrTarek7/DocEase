@@ -1,15 +1,12 @@
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-
+import { FormsModule } from '@angular/forms';
+import { Editor } from 'primeng/editor';
 @Component({
   selector: 'app-home',
-  imports: [ButtonModule],
+  imports: [FormsModule, Editor],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  toggleDarkMode() {
-    const element = document.querySelector('html');
-    element?.classList.toggle('my-app-dark');
-  }
+  text: string | undefined;
 }

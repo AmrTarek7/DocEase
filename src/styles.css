@@ -1,2 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
-@import "tailwindcss";
+@import "primeicons/primeicons.css";
+
+@layer tailwind-base, primeng, tailwind-utilities;
+
+@layer tailwind-base {
+  @tailwind base;
+}
+
+@layer tailwind-utilities {
+  @tailwind components;
+  @tailwind utilities;
+}
+
+.card {
+  background: var(--card-background);
+  border: var(--card-border);
+  padding: 2rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.layout-wrapper {
+  min-height: 100vh;
+}
