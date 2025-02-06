@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "primeicons/primeicons.css";
-
+@import url("./assets/layout/layout.scss");
+@import url("./assets/demo/demo.scss");
 @layer tailwind-base, primeng, tailwind-utilities;
 
 @layer tailwind-base {
@@ -12,7 +13,7 @@
   @tailwind utilities;
 }
 
-.card {
+/* .card {
   background: var(--card-background);
   border: var(--card-border);
   padding: 2rem;
@@ -22,4 +23,15 @@
 
 .layout-wrapper {
   min-height: 100vh;
+} */
+/* تخصيص الألوان في الوضع الداكن */
+.app-dark {
+  .darken {
+    color: red;
+  }
+}
+
+/* تخصيص الألوان في الوضع العادي */
+body .darken {
+  color: blue; /* أو أي لون تريده في الوضع العادي */
 }

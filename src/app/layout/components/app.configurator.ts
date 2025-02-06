@@ -12,14 +12,16 @@ import { $t, updatePreset, updateSurfacePalette } from '@primeng/themes';
 import Aura from '@primeng/themes/aura';
 import Lara from '@primeng/themes/lara';
 import Nora from '@primeng/themes/nora';
+import material from '@primeng/themes/material';
 import { PrimeNG } from 'primeng/config';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { LayoutService } from '../service/layout.service';
+import { LayoutService } from '../../service/layout.service';
 
 const presets = {
   Aura,
   Lara,
   Nora,
+  material,
 } as const;
 
 declare type KeyOfType<T> = keyof T extends infer U ? U : never;
@@ -478,23 +480,6 @@ export class AppConfigurator {
     }
   }
 
-  // updateColors(event: any, type: string, color: any) {
-  //   if (type === 'primary') {
-  //     this.layoutService.layoutConfig.update((state) => ({
-  //       ...state,
-  //       primary: color.name,
-  //     }));
-  //   } else if (type === 'surface') {
-  //     this.layoutService.layoutConfig.update((state) => ({
-  //       ...state,
-  //       surface: color.name,
-  //     }));
-  //   }
-  //   this.applyTheme(type, color);
-
-  //   event.stopPropagation();
-  // }
-  //
   updateColors(event: any, type: string, color: any) {
     let updatedState = {};
 
@@ -530,22 +515,6 @@ export class AppConfigurator {
     }
   }
 
-  // onPresetChange(event: any) {
-  //   this.layoutService.layoutConfig.update((state) => ({
-  //     ...state,
-  //     preset: event,
-  //   }));
-  //   const preset = presets[event as KeyOfType<typeof presets>];
-  //   const surfacePalette = this.surfaces.find(
-  //     (s) => s.name === this.selectedSurfaceColor()
-  //   )?.palette;
-  //   $t()
-  //     .preset(preset)
-  //     .preset(this.getPresetExt())
-  //     .surfacePalette(surfacePalette)
-  //     .use({ useDefaultOptions: true });
-  // }
-
   onPresetChange(event: any) {
     this.layoutService.layoutConfig.update((state) => ({
       ...state,
@@ -569,13 +538,6 @@ export class AppConfigurator {
       .surfacePalette(surfacePalette)
       .use({ useDefaultOptions: true });
   }
-
-  // onMenuModeChange(event: string) {
-  //   this.layoutService.layoutConfig.update((prev) => ({
-  //     ...prev,
-  //     menuMode: event,
-  //   }));
-  // }
 
   onMenuModeChange(event: string) {
     this.layoutService.layoutConfig.update((prev) => ({

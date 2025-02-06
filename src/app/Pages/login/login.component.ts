@@ -6,17 +6,33 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { AppFloatingConfigurator } from '../../layout/components/floatingconfigurator/floatingconfigurator.component';
+import { CheckboxModule } from 'primeng/checkbox';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
   selector: 'app-login',
-  imports: [DividerModule, ButtonModule, FormsModule, ToastModule],
+  imports: [
+    DividerModule,
+    ButtonModule,
+    FormsModule,
+    ToastModule,
+    AppFloatingConfigurator,
+    CheckboxModule,
+    InputTextModule,
+    PasswordModule,
+    RippleModule,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
   standalone: true,
 })
 export class LoginComponent {
-  email!: string;
-  password!: string;
+  email: string = '';
+  password: string = '';
+  checked: boolean = false;
   employees: Employee[] = []; // Store employee data
   errorMessage: string | null = null;
 

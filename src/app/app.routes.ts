@@ -1,10 +1,24 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './Pages/home/home.component';
 import { LoginComponent } from './Pages/login/login.component';
+import { AppLayout } from './layout/components/app.layout';
+import { Notfound } from './Pages/notfound/notfound';
+import { Dashboard } from './Pages/dashboard/dashboard';
 
-export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent },
+export const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login' },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'home',
+    component: AppLayout,
+    children: [
+      {
+        path: '',
+        component: Dashboard,
+      },
+    ],
+  },
+  { path: '**', component: Notfound },
 ];
