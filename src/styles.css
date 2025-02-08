@@ -13,25 +13,44 @@
   @tailwind utilities;
 }
 
-/* .card {
-  background: var(--card-background);
-  border: var(--card-border);
-  padding: 2rem;
-  border-radius: 10px;
-  margin-bottom: 1rem;
-}
-
-.layout-wrapper {
-  min-height: 100vh;
-} */
-/* تخصيص الألوان في الوضع الداكن */
-.app-dark {
+/*! تخصيص الألوان في الوضع الداكن */
+/** .app-dark داخل كلاس  .darken وسوف يطبق علي عنصر يحتوي علي  */
+/* .app-dark {
   .darken {
     color: red;
   }
-}
+} */
 
-/* تخصيص الألوان في الوضع العادي */
-body .darken {
-  color: blue; /* أو أي لون تريده في الوضع العادي */
-}
+/*!
+تخصيص الألوان في الوضع العادي
+ .darken أو أي لون تريده في الوضع العادي وسوف يطبق علي عنصر يحتوي علي
+ */
+
+/* body .darken {
+  color: blue;
+} */
+
+/*? الوضع الفاتح (الألوان الافتراضية) */
+
+/* :root {
+  --ss-ground: #700000;
+  --s2-background: #9c0303;
+  --s3-color: #ffffff;
+  --size: 4rem;
+} */
+
+/*? عند تفعيل الوضع الداكن */
+/* :root[class*="app-dark"] {
+  --ss-ground: #001380;
+  --s2-background: #3f12e4;
+  --s3-color: #a53232;
+  --size: 7rem;
+} */
+
+/*? تطبيق الألوان على الأكواد البرمجية */
+/* .code {
+  background-color: var(--s2-background);
+  color: var(--s3-color);
+  border-radius: 5px;
+  font-size: var(--size);
+} */

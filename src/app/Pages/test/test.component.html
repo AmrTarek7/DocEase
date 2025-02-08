@@ -1,0 +1,352 @@
+<!-- شاشة الأرشيف الرئيسية -->
+شاشة الأرشيف الرئيسية
+
+<div class="card min-h-screen">
+  <!-- Sidebar -->
+  <div class="flex">
+    <div class="w-64 shadow-md p-4">
+      <ul class="space-y-2">
+        <li class="p-2 bg-blue-100 rounded">الأرشيف</li>
+        <li class="p-2 hover:bg-gray-100 rounded">إرسال خطاب جديد</li>
+        <li class="p-2 hover:bg-gray-100 rounded">البحث في الأرشيف</li>
+        <li class="p-2 hover:bg-gray-100 rounded">الإعدادات</li>
+      </ul>
+    </div>
+
+    <div class="flex-1 p-4">
+      <!-- Search Bar -->
+      <div class="mb-4">
+        <p-inputGroup>
+          <input
+            pInputText
+            placeholder="ابحث برقم الخطاب أو التاريخ أو الجهة"
+            class="w-full"
+          />
+          <button pButton icon="pi pi-search" class="p-button-primary"></button>
+        </p-inputGroup>
+      </div>
+
+      <!-- Letters Table -->
+      <p-table [value]="letters" [paginator]="true" [rows]="10" class="w-full">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>رقم الخطاب</th>
+            <th>تاريخ الاستلام</th>
+            <th>الجهة المرسلة</th>
+            <th>الجهة الداخلية</th>
+            <th>حالة الخطاب</th>
+            <th>إجراءات</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-letter>
+          <tr>
+            <td>{{ letter.id }}</td>
+            <td>{{ letter.date }}</td>
+            <td>{{ letter.sender }}</td>
+            <td>{{ letter.internalDepartment }}</td>
+            <td>
+              <p-tag
+                [severity]="getSeverity(letter.status)"
+                [value]="letter.status"
+              ></p-tag>
+            </td>
+            <td>
+              <button
+                pButton
+                icon="pi pi-eye"
+                class="p-button-info p-button-sm"
+              ></button>
+              <button
+                pButton
+                icon="pi pi-download"
+                class="p-button-success p-button-sm ml-2"
+              ></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <!-- Add New Letter Button -->
+      <button
+        pButton
+        icon="pi pi-plus"
+        label="إضافة خطاب جديد"
+        class="p-button-primary mt-4"
+      ></button>
+    </div>
+  </div>
+</div>
+
+<!-- شاشة إرسال خطاب جديد -->
+شاشة إرسال خطاب جديد
+<div class="card min-h-screen">
+  <!-- Sidebar -->
+  <div class="flex">
+    <!-- Main Content -->
+    <div class="flex-1 p-4">
+      <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-xl font-bold mb-4">إرسال خطاب جديد</h2>
+
+        <!-- Sender Field -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-2">الجهة المرسلة</label>
+          <p-dropdown
+            [options]="externalEntities"
+            [(ngModel)]="selectedSender"
+            optionLabel="name"
+            placeholder="اختر الجهة المرسلة"
+            class="w-full"
+          ></p-dropdown>
+        </div>
+
+        <!-- Internal Department Field -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-2"
+            >الجهة الداخلية المستهدفة</label
+          >
+          <p-dropdown
+            [options]="internalDepartments"
+            [(ngModel)]="selectedDepartment"
+            optionLabel="name"
+            placeholder="اختر الجهة الداخلية"
+            class="w-full"
+          ></p-dropdown>
+        </div>
+
+        <!-- Letter Details Field -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-2">تفاصيل الخطاب</label>
+          <textarea
+            pInputTextarea
+            [(ngModel)]="letterDetails"
+            class="w-full"
+            rows="5"
+          ></textarea>
+        </div>
+
+        <!-- Attachments Field -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-2">المرفقات</label>
+          <p-fileUpload
+            mode="basic"
+            chooseLabel="رفع ملف"
+            class="w-full"
+          ></p-fileUpload>
+          <div class="mt-2">
+            <div
+              class="flex items-center justify-between p-2 bg-gray-50 rounded mb-2"
+            >
+              <span> file.name </span>
+              <button
+                pButton
+                icon="pi pi-times"
+                class="p-button-danger p-button-sm"
+              ></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          pButton
+          icon="pi pi-send"
+          label="إرسال الخطاب"
+          class="p-button-primary w-full"
+        ></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- شاشة تفاصيل الخطاب -->
+شاشة تفاصيل الخطاب
+<div class="card min-h-screen">
+  <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-xl font-bold mb-4">تفاصيل الخطاب</h2>
+
+    <!-- Letter Information -->
+    <div class="mb-4">
+      <p><strong>رقم الخطاب:</strong> aa</p>
+      <p><strong>تاريخ الاستلام:</strong> aa</p>
+      <p><strong>الجهة المرسلة:</strong> aa</p>
+      <p><strong>الجهة الداخلية:</strong> aa</p>
+    </div>
+
+    <!-- Letter Content -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium mb-2">محتوى الخطاب</label>
+      <div class="p-4 bg-gray-50 rounded">safsafas</div>
+    </div>
+
+    <!-- Attachments -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium mb-2">المرفقات</label>
+      <div
+        class="flex items-center justify-between p-2 bg-gray-50 rounded mb-2"
+      >
+        <span>safsafas</span>
+        <button
+          pButton
+          icon="pi pi-download"
+          class="p-button-success p-button-sm"
+        ></button>
+      </div>
+    </div>
+
+    <!-- Back Button -->
+    <button
+      pButton
+      icon="pi pi-arrow-left"
+      label="العودة للأرشيف"
+      class="p-button-secondary w-full"
+    ></button>
+  </div>
+</div>
+
+<!--  شاشة الرد على الخطاب (لرئيس المؤسسة) -->
+شاشة الرد على الخطاب (لرئيس المؤسسة)
+<div class="card min-h-screen">
+  <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-xl font-bold mb-4">الرد على الخطاب</h2>
+
+    <!-- Letter Information -->
+    <div class="mb-4">
+      <p><strong>رقم الخطاب:</strong> aaa</p>
+      <p><strong>تاريخ الاستلام:</strong> aaa</p>
+      <p><strong>الجهة المرسلة:</strong> aaaa</p>
+      <p><strong>الجهة الداخلية:</strong> aaaa</p>
+    </div>
+
+    <!-- Response Field -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium mb-2">الرد</label>
+      <textarea
+        pInputTextarea
+        [(ngModel)]="response"
+        class="w-full"
+        rows="5"
+      ></textarea>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex gap-2">
+      <button
+        pButton
+        icon="pi pi-check"
+        label="موافقة"
+        class="p-button-success flex-1"
+      ></button>
+      <button
+        pButton
+        icon="pi pi-times"
+        label="رفض"
+        class="p-button-danger flex-1"
+      ></button>
+    </div>
+  </div>
+</div>
+
+<!-- شاشة البحث في الأرشيف -->
+شاشة البحث في الأرشيف
+<div class="card min-h-screen">
+  <div class="flex">
+    <!-- Main Content -->
+    <div class="flex-1 p-4">
+      <!-- Search Filters -->
+      <div class="bg-white p-6 rounded-lg shadow-md mb-4">
+        <h2 class="text-xl font-bold mb-4">البحث في الأرشيف</h2>
+
+        <!-- Search by Letter ID -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-2">رقم الخطاب</label>
+          <input pInputText placeholder="ابحث برقم الخطاب" class="w-full" />
+        </div>
+
+        <!-- Search by Sender -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-2">الجهة المرسلة</label>
+          <p-dropdown
+            [options]="externalEntities"
+            [(ngModel)]="searchCriteria.sender"
+            optionLabel="name"
+            placeholder="اختر الجهة المرسلة"
+            class="w-full"
+          ></p-dropdown>
+        </div>
+
+        <!-- Search by Date -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-2">تاريخ الاستلام</label>
+          <p-calendar
+            [(ngModel)]="searchCriteria.date"
+            [showIcon]="true"
+            dateFormat="yy/mm/dd"
+            placeholder="اختر التاريخ"
+            class="w-full"
+          ></p-calendar>
+        </div>
+
+        <!-- Search Button -->
+        <button
+          pButton
+          icon="pi pi-search"
+          label="بحث"
+          class="p-button-primary w-full"
+        ></button>
+      </div>
+
+      <!-- Search Results -->
+      <div>
+        <h3 class="text-lg font-bold mb-4">نتائج البحث</h3>
+        <p-table
+          [value]="searchResults"
+          [paginator]="true"
+          [rows]="10"
+          class="w-full"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th>رقم الخطاب</th>
+              <th>تاريخ الاستلام</th>
+              <th>الجهة المرسلة</th>
+              <th>الجهة الداخلية</th>
+              <th>حالة الخطاب</th>
+              <th>إجراءات</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-letter>
+            <tr>
+              <td>ششش</td>
+              <td>ششش</td>
+              <td>شصقثض</td>
+              <td>شفثصف</td>
+              <td>
+                <p-tag
+                  [severity]="getSeverity(letter.status)"
+                  [value]="letter.status"
+                ></p-tag>
+              </td>
+              <td>
+                <button
+                  pButton
+                  icon="pi pi-eye"
+                  class="p-button-info p-button-sm"
+                ></button>
+                <button
+                  pButton
+                  icon="pi pi-download"
+                  class="p-button-success p-button-sm ml-2"
+                ></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+
+      <!-- No Results Message -->
+      <div class="text-center text-gray-500">
+        <p>لا توجد نتائج مطابقة لمعايير البحث.</p>
+      </div>
+    </div>
+  </div>
+</div>

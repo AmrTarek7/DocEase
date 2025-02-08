@@ -26,11 +26,12 @@ export class AppFloatingConfigurator {
       let storedTheme: any = localStorage.getItem('darkTheme');
 
       if (storedTheme !== null) {
-        if (storedTheme == 'false') {
-          storedTheme = false;
-        } else if (storedTheme == 'true') {
-          storedTheme = true;
-        }
+        //? boolean value تحويل القيمة المخزنة إلى
+        storedTheme == 'false'
+          ? (storedTheme = false)
+          : storedTheme == 'true'
+          ? (storedTheme = true)
+          : console.log('Not Found Value');
 
         // الحصول على الإعدادات من localStorage وتحويلها إلى كائن
         let updatelayoutConfig: any = JSON.parse(

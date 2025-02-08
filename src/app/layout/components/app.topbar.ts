@@ -8,7 +8,6 @@ import { LayoutService } from '../../service/layout.service';
 
 @Component({
   selector: 'app-topbar',
-  standalone: true,
   imports: [RouterModule, CommonModule, StyleClassModule, AppConfigurator],
   template: ` <div class="layout-topbar">
     <div class="layout-topbar-logo-container">
@@ -51,7 +50,7 @@ import { LayoutService } from '../../service/layout.service';
       </a>
     </div>
 
-    <div class="layout-topbar-actions">
+    <div class="layout-topbar-actions  ">
       <div class="layout-config-menu">
         <button
           type="button"
@@ -127,11 +126,12 @@ export class AppTopbar {
       let storedTheme: any = localStorage.getItem('darkTheme');
 
       if (storedTheme !== null) {
-        if (storedTheme == 'false') {
-          storedTheme = false;
-        } else if (storedTheme == 'true') {
-          storedTheme = true;
-        }
+        //? boolean value تحويل القيمة المخزنة إلى
+        storedTheme == 'false'
+          ? (storedTheme = false)
+          : storedTheme == 'true'
+          ? (storedTheme = true)
+          : console.log('Not Found Value');
 
         // الحصول على الإعدادات من localStorage وتحويلها إلى كائن
         let updatelayoutConfig: any = JSON.parse(
