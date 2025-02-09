@@ -1,0 +1,44 @@
+<div class="card min-h-screen" dir="rtl">
+  <div
+    class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md"
+    *ngIf="letter"
+  >
+    <h2 class="text-xl font-bold mb-4">تفاصيل الخطاب</h2>
+
+    <div class="mb-4">
+      <p><strong>رقم الخطاب:</strong> {{ letter.id }}</p>
+      <p><strong>تاريخ الاستلام:</strong> {{ letter.date }}</p>
+      <p><strong>الجهة المرسلة:</strong> {{ letter.sender }}</p>
+      <p><strong>الجهة الداخلية:</strong> {{ letter.internalDepartment }}</p>
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-sm font-medium mb-2">محتوى الخطاب</label>
+      <div class="p-4 bg-gray-50 rounded">{{ letter.content }}</div>
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-sm font-medium mb-2">المرفقات</label>
+      <div
+        *ngFor="let attachment of letter.attachments"
+        class="flex items-center justify-between p-2 bg-gray-50 rounded mb-2"
+      >
+        <span>{{ attachment.name }}</span>
+        <button
+          pButton
+          icon="pi pi-download"
+          class="p-button-success p-button-sm"
+        ></button>
+      </div>
+    </div>
+
+    <button
+      pButton
+      icon="pi pi-arrow-left"
+      label="العودة للأرشيف"
+      class="p-button-secondary w-full"
+      (click)="backToArchive()"
+    ></button>
+  </div>
+  <div *ngIf="!letter">Loading...</div>
+</div>
