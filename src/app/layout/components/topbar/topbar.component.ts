@@ -1,25 +1,24 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { LayoutService } from '../../../service/layout.service';
-import { AppConfigurator } from '../configurator/app.configurator.component';
+import { Component } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { StyleClassModule } from 'primeng/styleclass';
-import { FormsModule } from '@angular/forms';
+import { AppConfigurator } from '../configurator/app.configurator.component';
+import { LayoutService } from '../../../service/layout.service';
 
 @Component({
-  selector: 'app-floating-configurator',
-  imports: [ButtonModule, AppConfigurator, StyleClassModule, FormsModule],
-  templateUrl: './floatingconfigurator.component.html',
-  styles: '',
+  selector: 'app-topbar',
+  imports: [RouterModule, CommonModule, StyleClassModule, AppConfigurator],
+  templateUrl: './topbar.component.html',
 })
-export class AppFloatingConfigurator {
-  LayoutService = inject(LayoutService);
+export class AppTopbar {
+  items!: MenuItem[];
 
-  isDarkTheme = computed(() => this.LayoutService.layoutConfig().darkTheme);
+  constructor(public layoutService: LayoutService) {}
 
   toggleDarkMode() {
-    this.LayoutService.layoutConfig.update((state) => {
+    this.layoutService.layoutConfig.update((state) => {
       const newState = { ...state, darkTheme: !state.darkTheme };
-      console.log(newState);
 
       // تخزين القيمة الجديدة في localStorage
       localStorage.setItem('darkTheme', JSON.stringify(newState.darkTheme));
@@ -55,7 +54,7 @@ export class AppFloatingConfigurator {
   // ngOnInit() {
   //   const storedTheme = localStorage.getItem('darkTheme');
   //   if (storedTheme !== null) {
-  //     this.LayoutService.layoutConfig.update((state) => ({
+  //     this.layoutService.layoutConfig.update((state) => ({
   //       ...state,
   //       darkTheme: JSON.parse(storedTheme),
   //     }));
