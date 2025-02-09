@@ -1,0 +1,34 @@
+{
+    "externalEntities": [
+      { "name": "وزارة الكهرباء" },
+      { "name": "وزارة الصحة" },
+      { "name": "وزارة التعليم" }
+    ],
+    "internalDepartments": [
+      { "name": "قسم الشؤون الإدارية" },
+      { "name": "قسم المالية" },
+      { "name": "قسم العلاقات العامة" }
+    ],
+    "letters": [
+      {
+        "id": 1,
+        "date": "2023-10-01",
+        "sender": "وزارة الكهرباء",
+        "internalDepartment": "قسم الشؤون الإدارية",
+        "status": "مستلم",
+        "content": "تفاصيل الخطاب 1",
+        "attachments": [{ "name": "ملف1.pdf" }]
+      },
+      {
+        "id": 2,
+        "date": "2023-10-02",
+        "sender": "وزارة الصحة",
+        "internalDepartment": "قسم المالية",
+        "status": "قيد المراجعة",
+        "content": "تفاصيل الخطاب 2",
+        "attachments": [{ "name": "ملف2.docx" }]
+      }
+    ]
+  }
+
+  
