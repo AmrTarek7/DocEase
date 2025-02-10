@@ -7,6 +7,7 @@ import { Dashboard } from './Pages/dashboard/dashboard';
 import { TestComponent } from './Pages/test/test.component';
 import { ArchiveComponent } from './Pages/archive/archive.component';
 import { ArchiveViewLetterComponent } from './Pages/archive/components/archiveViewLetter/archiveViewLetter.component';
+import { SendNewLetterComponent } from './Pages/archive/components/send-new-letter/send-new-letter.component';
 
 export const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -33,6 +34,10 @@ export const appRoutes: Routes = [
       {
         path: 'archiveViewLetter',
         component: ArchiveViewLetterComponent,
+      },
+      {
+        path: 'sendNewLetter',
+        component: SendNewLetterComponent,
       },
     ],
   },

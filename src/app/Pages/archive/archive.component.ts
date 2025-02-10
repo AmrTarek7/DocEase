@@ -1,19 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TableModule } from 'primeng/table';
-import { DropdownModule } from 'primeng/dropdown';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
-import { FileUploadModule } from 'primeng/fileupload';
-import { TagModule } from 'primeng/tag';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { CalendarModule } from 'primeng/calendar';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { CommonModule } from '@angular/common';
+import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { TagModule } from 'primeng/tag';
 
 interface ExternalEntity {
   name: string;
@@ -47,15 +44,12 @@ export interface Data {
   selector: 'app-archive',
   imports: [
     FormsModule,
-    TableModule,
-    DropdownModule,
-    InputTextModule,
-    ButtonModule,
-    FileUploadModule,
-    TagModule,
     InputGroupModule,
     InputGroupAddonModule,
-    CalendarModule,
+    TagModule,
+    TableModule,
+    InputTextModule,
+    ButtonModule,
     CommonModule,
   ],
   templateUrl: './archive.component.html',

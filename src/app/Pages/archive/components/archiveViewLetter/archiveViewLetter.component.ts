@@ -1,24 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { of } from 'rxjs';
-import { FormsModule } from '@angular/forms';
-import { TableModule } from 'primeng/table';
-import { DropdownModule } from 'primeng/dropdown';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
-import { FileUploadModule } from 'primeng/fileupload';
-import { TagModule } from 'primeng/tag';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { CalendarModule } from 'primeng/calendar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { Letter, Data } from '../../archive.component'; // Import the interface
+import { of } from 'rxjs';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { Letter, Data } from '../../archive.component';
+import { SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-archive-view-letter',
-  imports: [FormsModule, ButtonModule, CommonModule],
+  imports: [FormsModule, ButtonModule, CommonModule, SelectModule],
   templateUrl: './archiveViewLetter.component.html',
 })
 export class ArchiveViewLetterComponent implements OnInit {

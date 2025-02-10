@@ -1,0 +1,184 @@
+<form [formGroup]="letterForm" class="card rounded-lg shadow-md" dir="rtl">
+  <h2 class="text-xl font-bold mb-4">إرسال خطاب جديد</h2>
+
+  <!-- Sender Field -->
+  <div class="mb-4">
+    <label class="text-xl mb-2 block"><strong>الجهة المرسلة</strong></label>
+    <p-select
+      [options]="externalEntities"
+      formControlName="selectedSender"
+      optionLabel="name"
+      placeholder="اختر الجهة المرسلة"
+      class="w-full"
+    />
+    <div
+      *ngIf="
+        letterForm.get('selectedSender')?.invalid &&
+        letterForm.get('selectedSender')?.touched
+      "
+      class="text-red-500"
+    >
+      يرجى اختيار الجهة المرسلة.
+    </div>
+  </div>
+
+  <!-- Internal Department Field -->
+  <div class="mb-4">
+    <label class="text-xl mb-2 block"
+      ><strong>الجهة الداخلية المستهدفة</strong></label
+    >
+    <p-select
+      [options]="internalDepartments"
+      formControlName="selectedDepartment"
+      optionLabel="name"
+      placeholder="اختر الجهة الداخلية"
+      class="w-full"
+    />
+    <div
+      *ngIf="
+        letterForm.get('selectedDepartment')?.invalid &&
+        letterForm.get('selectedDepartment')?.touched
+      "
+      class="text-red-500"
+    >
+      يرجى اختيار الجهة الداخلية.
+    </div>
+  </div>
+
+  <!-- Letter Details Field -->
+  <div class="mb-4">
+    <label class="text-xl mb-2 block"><strong>تفاصيل الخطاب</strong></label>
+    <textarea
+      rows="5"
+      cols="30"
+      pTextarea
+      class="w-full"
+      formControlName="letterDetails"
+    ></textarea>
+    <div
+      *ngIf="
+        letterForm.get('letterDetails')?.invalid &&
+        letterForm.get('letterDetails')?.touched
+      "
+      class="text-red-500"
+    >
+      يرجى إدخال تفاصيل الخطاب.
+    </div>
+  </div>
+
+  <!-- Attachments Field -->
+  <div class="mb-4">
+    <label class="text-xl mb-2 block"><strong>المرفقات</strong></label>
+    <p-toast></p-toast>
+    <p-fileupload
+      name="demo[]"
+      url="https://www.primefaces.org/cdn/api/upload.php"
+      (onUpload)="onUpload($event)"
+      [multiple]="true"
+      accept="image/*,application/pdf"
+      maxFileSize="1000000"
+      mode="advanced"
+    >
+      <ng-template #empty>
+        <div class="dark:text-red-500">
+          Drag and drop files to here to upload.
+        </div>
+      </ng-template>
+      <ng-template #content>
+        <ul *ngIf="uploadedFiles.length">
+          <li *ngFor="let file of uploadedFiles">
+            {{ file.name }} - {{ file.size }} bytes
+          </li>
+        </ul>
+      </ng-template>
+    </p-fileupload>
+  </div>
+
+  <!-- Submit Button -->
+  <button
+    pButton
+    icon="pi pi-send"
+    label="إرسال الخطاب"
+    class="p-button-primary w-full mt-5"
+    (click)="onSubmit()"
+  ></button>
+</form>
+
+<!-- <form class="card rounded-lg shadow-md" dir="rtl">
+  <h2 class="text-xl font-bold mb-4">إرسال خطاب جديد</h2>
+
+  <div class="mb-4">
+    <label class="text-xl mb-2 block"><strong>الجهة المرسلة</strong></label>
+    <p-select
+      [options]="externalEntities"
+      [(ngModel)]="selectedSender"
+      name="externalEntities"
+      optionLabel="name"
+      placeholder="اختر الجهة المرسلة"
+      class="w-full"
+    />
+  </div>
+
+  <div class="mb-4">
+    <label class="text-xl mb-2 block">
+      <strong>الجهة الداخلية المستهدفة</strong>
+    </label>
+    <p-select
+      [options]="internalDepartments"
+      [(ngModel)]="selectedDepartment"
+      name="internalDepartments"
+      optionLabel="name"
+      placeholder="اختر الجهة الداخلية"
+      class="w-full"
+    />
+  </div>
+
+  <div class="mb-4">
+    <label class="text-xl mb-2 block"><strong>تفاصيل الخطاب</strong></label>
+
+    <textarea
+      rows="5"
+      cols="30"
+      pTextarea
+      class="w-full"
+      [(ngModel)]="letterDetails"
+      name="letterDetails"
+    ></textarea>
+  </div>
+
+  <div class="mb-4">
+    <label class="text-xl mb-2 block"><strong>المرفقات</strong></label>
+
+    <p-toast />
+    <p-fileupload
+      name="demo[]"
+      url="https://www.primefaces.org/cdn/api/upload.php"
+      (onUpload)="onUpload($event)"
+      [multiple]="true"
+      accept="image/*"
+      maxFileSize="1000000"
+      mode="advanced"
+    >
+      <ng-template #empty>
+        <div class="dark:text-red-500">
+          Drag and drop files to here to upload.
+        </div>
+      </ng-template>
+      <ng-template #content>
+        <ul *ngIf="uploadedFiles.length">
+          <li *ngFor="let file of uploadedFiles">
+            {{ file.name }} - {{ file.size }} bytes
+          </li>
+        </ul>
+      </ng-template>
+    </p-fileupload>
+
+    <button
+      pButton
+      icon="pi pi-send"
+      label="إرسال الخطاب"
+      class="p-button-primary w-full mt-5"
+      (click)="onSubmit()"
+    ></button>
+  </div>
+</form> -->

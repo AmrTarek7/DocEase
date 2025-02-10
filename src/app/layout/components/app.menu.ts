@@ -29,16 +29,37 @@ export class AppMenu {
       {
         label: 'Home',
         items: [
-          { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] },
+          {
+            label: 'Dashboard',
+            icon: 'pi pi-fw pi-home',
+            routerLink: ['/home'],
+          },
         ],
       },
       {
-        label: 'UI Components',
+        label: 'الأرشيف',
         items: [
           {
-            label: 'Form Layout',
-            icon: 'pi pi-fw pi-id-card',
-            routerLink: ['/uikit/formlayout'],
+            label: 'الارشيف',
+            icon: 'pi pi-folder-open',
+            items: [
+              {
+                label: 'الشاشة الرئيسية',
+                // icon: 'pi pi-fw pi-sign-in',
+                icon: 'pi pi-fw pi-home',
+                routerLink: ['/home/archive'],
+              },
+              {
+                label: 'sendNewLetter',
+                icon: 'pi pi-send',
+                routerLink: ['/home/sendNewLetter'],
+              },
+              {
+                label: 'Access Denied',
+                icon: 'pi pi-fw pi-lock',
+                routerLink: ['/auth/access'],
+              },
+            ],
           },
           {
             label: 'Input',
