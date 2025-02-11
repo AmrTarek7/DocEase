@@ -7,43 +7,64 @@
   "internalDepartments": [
     { "name": "قسم الشؤون الإدارية" },
     { "name": "قسم المالية" },
-    { "name": "قسم العلاقات العامة" }
+    { "name": "قسم العلاقات العامة" },
+    { "name": "قسم المتابعة الفنية " }
   ],
   "letters": [
     {
       "id": 1,
-      "date": "2023-10-01",
+      "numIn": 100,
+      "numOut": 1001,
+      "dateIn": "2023-10-01",
+      "dateOut": "2023-10-06",
       "sender": "وزارة الكهرباء",
       "internalDepartment": "قسم الشؤون الإدارية",
       "status": "مستلم",
+      "sever": "عالية",
       "content": "تفاصيل الخطاب 1",
+      "type": "استقبال",
       "attachments": [{ "name": "ملف1.pdf" }]
     },
     {
       "id": 2,
-      "date": "2023-10-05",
+      "numIn": 101,
+      "numOut": 1003,
+      "dateIn": "2023-10-05",
+      "dateOut": "2023-10-08",
       "sender": "وزارة الصحة",
       "internalDepartment": "قسم المالية",
       "status": "قيد المراجعة",
+      "sever": "عاجل",
       "content": "تفاصيل الخطاب 2",
+      "type": "ارسال",
       "attachments": [{ "name": "ملف2.docx" }]
     },
     {
       "id": 3,
-      "date": "2023-10-02",
+      "numIn": 104,
+      "numOut": 1010,
+      "dateIn": "2023-10-02",
+      "dateOut": "2023-10-04",
       "sender": "وزارة المالية",
       "internalDepartment": "قسم المالية",
       "status": "مستلم",
+      "sever": "متوسطة",
       "content": "تفاصيل الخطاب 2",
+      "type": "استقبال",
       "attachments": [{ "name": "ملف2.docx" }]
     },
     {
       "id": 4,
-      "date": "2023-10-10",
+      "numIn": 109,
+      "numOut": 1021,
+      "dateIn": "2023-10-10",
+      "dateOut": "2023-10-15",
       "sender": " الصحة",
       "internalDepartment": "قسم المالية",
       "status": "قيد المراجعة",
       "content": "تفاصيل الخطاب 2",
+      "sever": "قصوى",
+      "type": "ارسال",
       "attachments": [{ "name": "ملف2.docx" }]
     }
   ]

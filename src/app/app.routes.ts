@@ -8,6 +8,8 @@ import { TestComponent } from './Pages/test/test.component';
 import { ArchiveComponent } from './Pages/archive/archive.component';
 import { ArchiveViewLetterComponent } from './Pages/archive/components/archiveViewLetter/archiveViewLetter.component';
 import { SendNewLetterComponent } from './Pages/archive/components/send-new-letter/send-new-letter.component';
+import { CEOComponent } from './Pages/ceo/ceo.component';
+import { LettComponent } from './Pages/lett/lett.component';
 
 export const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -36,8 +38,16 @@ export const appRoutes: Routes = [
         component: ArchiveViewLetterComponent,
       },
       {
+        path: 'lett',
+        component: LettComponent,
+      },
+      {
         path: 'sendNewLetter',
         component: SendNewLetterComponent,
+      },
+      {
+        path: 'ceo',
+        component: CEOComponent,
       },
     ],
   },

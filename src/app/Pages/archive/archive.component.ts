@@ -32,6 +32,8 @@ export interface Letter {
   status: string;
   content: string;
   attachments: Attachment[];
+  type: string;
+  sever: string;
 }
 
 export interface Data {

@@ -1,0 +1,113 @@
+<div *ngIf="letter">
+  <!-- viewing letter data in a table -->
+  <div class="card">
+    <p-table
+      [value]="[letter]"
+      [columns]="cols"
+      styleClass="p-datatable-striped"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns">
+            {{ col.header }}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData>
+        <tr>
+          <td *ngFor="let col of cols">
+            {{ rowData[col.field] }}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <!-- <p>
+    <strong class="text-xl"> الجهة الداخلية&nbsp;&nbsp;:&nbsp;&nbsp; </strong>
+    <span class="font-semibold">{{ letter.internalDepartment }}</span>
+  </p> -->
+
+  <div class="mb-4">
+    <label class="block text-sm font-medium mb-2"
+      >الجهة الداخلية المستهدفة</label
+    >
+    <p-multiSelect
+      [options]="internalDepartments"
+      [(ngModel)]="selectedDepartments"
+      optionLabel="name"
+      placeholder="اختر الجهات الداخلية"
+      class="w-full"
+      [filter]="true"
+    >
+    </p-multiSelect>
+  </div>
+
+  <div class="mb-4">
+    <label class="block text-sm font-medium mb-2">الجهة الداخلية المجمعة</label>
+    <p-dropdown
+      [options]="internalDepartments"
+      [(ngModel)]="collectedDep"
+      optionLabel="name"
+      placeholder="اختر الجهة المجمعة"
+      class="w-full"
+    ></p-dropdown>
+  </div>
+
+  <div class="mb-4">
+    <label class="block text-sm font-medium mb-2"> ملاحظات</label>
+    <textarea
+      class="border-2 border-solid"
+      style="border: solid 1px rgb(187, 185, 185)"
+      pInputTextarea
+      [(ngModel)]="letterDetails"
+      class="w-full"
+      rows="5"
+    ></textarea>
+  </div>
+
+  <!-- <div class="mb-4">
+    <label class="text-xl mb-2 block"><strong>المرفقات</strong></label>
+    <div
+      *ngFor="let attachment of letter.attachments"
+      class="flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-800 rounded mb-2"
+    >
+      <strong>{{ attachment.name }}</strong>
+      <button
+        pButton
+        icon="pi pi-download"
+        class="p-button-success p-button-sm"
+      ></button>
+    </div>
+  </div> -->
+
+  <div class="col-span-full lg:col-span-6">
+    <div class="card">
+      <div class="font-semibold text-xl mb-4">المرفقات</div>
+      <p-fileupload
+        name="demo[]"
+        (onUpload)="onUpload($event)"
+        [multiple]="true"
+        accept=""
+        maxFileSize="1000000"
+        mode="advanced"
+        url="https://www.primefaces.org/cdn/api/upload.php"
+        chooseLabel="اختر ملف"
+        uploadLabel="رفع"
+        cancelLabel="إلغاء"
+      >
+        <ng-template #empty>
+          <div>اسحب الملفات وأفلتها هنا للتحميل.</div>
+        </ng-template>
+        <ng-template #content>
+          <ul *ngIf="uploadedFiles.length">
+            <li *ngFor="let file of uploadedFiles">
+              {{ file.name }} - {{ file.size }} bytes
+            </li>
+          </ul>
+        </ng-template>
+      </p-fileupload>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!letter">Loading...</div>
