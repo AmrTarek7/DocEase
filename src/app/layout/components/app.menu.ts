@@ -54,17 +54,18 @@ export class AppMenu {
                 icon: 'pi pi-send',
                 routerLink: ['/home/archive/sendNewLetter'],
               },
-              {
-                label: 'Letter Search',
-                icon: 'pi pi-search',
-                routerLink: ['/home/archive/searchArchiveLetter'],
-              },
             ],
           },
           {
-            label: 'Input',
-            icon: 'pi pi-fw pi-check-square',
-            routerLink: ['/uikit/input'],
+            label: 'رئيس المؤسسة',
+            icon: 'pi pi-building-columns',
+            items: [
+              {
+                label: 'الشاشة الرئيسية',
+                icon: 'pi pi-fw pi-home',
+                routerLink: ['/home/ceo'],
+              },
+            ],
           },
           {
             label: 'Button',

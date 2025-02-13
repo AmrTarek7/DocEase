@@ -44,13 +44,13 @@
 
   <div class="mb-4">
     <label class="block text-sm font-medium mb-2">الجهة الداخلية المجمعة</label>
-    <p-dropdown
+    <p-select
       [options]="internalDepartments"
       [(ngModel)]="collectedDep"
       optionLabel="name"
       placeholder="اختر الجهة المجمعة"
       class="w-full"
-    ></p-dropdown>
+    ></p-select>
   </div>
 
   <div class="mb-4">
@@ -65,24 +65,12 @@
     ></textarea>
   </div>
 
-  <!-- <div class="mb-4">
-    <label class="text-xl mb-2 block"><strong>المرفقات</strong></label>
-    <div
-      *ngFor="let attachment of letter.attachments"
-      class="flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-800 rounded mb-2"
-    >
-      <strong>{{ attachment.name }}</strong>
-      <button
-        pButton
-        icon="pi pi-download"
-        class="p-button-success p-button-sm"
-      ></button>
-    </div>
-  </div> -->
-
   <div class="col-span-full lg:col-span-6">
     <div class="card">
+      <p-toast></p-toast>
+
       <div class="font-semibold text-xl mb-4">المرفقات</div>
+
       <p-fileupload
         name="demo[]"
         (onUpload)="onUpload($event)"
@@ -110,4 +98,21 @@
   </div>
 </div>
 
-<div *ngIf="!letter">Loading...</div>
+<!-- when data slow fitching -->
+<div class="flex animate-pulse" *ngIf="!letter">
+  <div class="ms-4 mt-2 w-full">
+    <p
+      class="h-4 bg-gray-200 rounded-full dark:bg-neutral-700"
+      style="width: 40%"
+    ></p>
+
+    <ul class="mt-5 space-y-3">
+      <li class="w-full h-4 bg-gray-200 rounded-full dark:bg-neutral-700"></li>
+      <li class="w-full h-4 bg-gray-200 rounded-full dark:bg-neutral-700"></li>
+      <li class="w-full h-4 bg-gray-200 rounded-full dark:bg-neutral-700"></li>
+      <li class="w-full h-4 bg-gray-200 rounded-full dark:bg-neutral-700"></li>
+      <li class="w-full h-4 bg-gray-200 rounded-full dark:bg-neutral-700"></li>
+      <li class="w-full h-4 bg-gray-200 rounded-full dark:bg-neutral-700"></li>
+    </ul>
+  </div>
+</div>

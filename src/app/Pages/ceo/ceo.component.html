@@ -35,7 +35,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-letter>
           <tr>
-            <td>{{ letter.numIn}}</td>
+            <td>{{ letter.numIn }}</td>
             <td>{{ letter.dateIn }}</td>
             <td>{{ letter.numOut }}</td>
             <td>{{ letter.dateOut }}</td>
@@ -67,7 +67,9 @@
                   [(visible)]="visible"
                   [style]="{ width: '70%' }"
                 >
-                  <app-lett [letterId]="selectedLetterId"></app-lett>
+                  <app-letter-view-ceo
+                    [letterId]="selectedLetterId"
+                  ></app-letter-view-ceo>
 
                   <div class="flex justify-end gap-2">
                     <p-button label="ارسال" (click)="visible = false" />
@@ -92,5 +94,3 @@
     </div>
   </div>
 </div>
-<!-- <div *ngIf="error">{{ error }}</div> -->
-<!-- <div *ngIf="!data && !error">Loading data...</div> -->

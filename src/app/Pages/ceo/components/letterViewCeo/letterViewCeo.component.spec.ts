@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LettComponent } from './lett.component';
+import { letterViewCeoComponent } from './letterViewCeo.component';
 
 describe('LettComponent', () => {
-  let component: LettComponent;
-  let fixture: ComponentFixture<LettComponent>;
+  let component: letterViewCeoComponent;
+  let fixture: ComponentFixture<letterViewCeoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LettComponent]
-    })
-    .compileComponents();
+      imports: [letterViewCeoComponent],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(LettComponent);
+    fixture = TestBed.createComponent(letterViewCeoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

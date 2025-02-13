@@ -1,71 +1,130 @@
-<div class="card min-h-screen" dir="rtl" *ngIf="data">
-  <div class="flex">
-    <div class="flex-1 p-4">
-      <!-- Search Bar -->
-      <div class="mb-4">
-        <p-inputGroup>
-          <input
-            pInputText
-            placeholder="ابحث برقم الخطاب أو التاريخ أو الجهة"
-            class="w-full"
-          />
-          <button pButton icon="pi pi-search" class="p-button-primary"></button>
-        </p-inputGroup>
-      </div>
+<!-- Main Content -->
+<div class="card flex-1 p-4" dir="rtl">
+  <!-- Search Filters -->
+  <div class="mb-4 pr-12">
+    <h2 class="text-xl font-bold mb-4">البحث في الأرشيف</h2>
 
-      <p-table
-        [paginator]="true"
-        [rows]="10"
-        [value]="data.letters"
+    <!-- Search by Letter ID -->
+    <div class="mb-4">
+      <label class="block text-xl font-medium mb-2">رقم الخطاب</label>
+      <input
+        pInputText
+        placeholder="ابحث برقم الخطاب"
         class="w-full"
-      >
-        <ng-template pTemplate="header">
-          <tr>
-            <th>رقم الخطاب</th>
-            <th>تاريخ الاستلام</th>
-            <th>الجهة المرسلة</th>
-            <th>الجهة الداخلية</th>
-            <th>حالة الخطاب</th>
-            <th>إجراءات</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-letter>
-          <tr>
-            <td>{{ letter.id }}</td>
-            <td>{{ letter.date }}</td>
-            <td>{{ letter.sender }}</td>
-            <td>{{ letter.internalDepartment }}</td>
-            <td>
-              <p-tag
-                [severity]="getSeverity(letter.status)"
-                [value]="letter.status"
-              ></p-tag>
-            </td>
-            <td>
-              <button
-                pButton
-                icon="pi pi-eye"
-                class="p-button-info p-button-sm"
-                (click)="viewLetter(letter)"
-              ></button>
-              <button
-                pButton
-                icon="pi pi-download"
-                class="p-button-success p-button-sm ml-2"
-              ></button>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
-
-      <button
-        pButton
-        icon="pi pi-plus"
-        label="إضافة خطاب جديد"
-        class="p-button-primary mt-4"
-      ></button>
+        [(ngModel)]="searchCriteria.id"
+      />
     </div>
+
+    <!-- Search by Sender -->
+    <div class="mb-4">
+      <label class="block text-xl font-medium mb-2">الجهة المرسلة</label>
+      <p-select
+        [options]="externalEntities"
+        [(ngModel)]="searchCriteria.sender"
+        optionLabel="name"
+        placeholder="اختر الجهة المرسلة"
+        class="w-full"
+      ></p-select>
+    </div>
+
+    <!-- Search by Date -->
+    <div class="mb-4">
+      <label class="block text-xl font-bold mb-2">تاريخ الاستلام</label>
+      <p-datepicker dir="ltr" [(ngModel)]="searchCriteria.date" />
+    </div>
+
+    <!-- Search Button -->
+    <button
+      pButton
+      icon="pi pi-search"
+      label="بحث"
+      class="p-button-primary w-full"
+      (click)="search()"
+    ></button>
+  </div>
+
+  <!-- Search Results -->
+  <div class="pr-12">
+    <h3 class="text-lg font-bold mb-4">نتائج البحث</h3>
+    <p-table
+      [value]="searchResults"
+      [paginator]="true"
+      [rows]="10"
+      class="w-full"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>رقم الخطاب</th>
+          <th>تاريخ الاستلام</th>
+          <th>الجهة المرسلة</th>
+          <th>الجهة الداخلية</th>
+          <th>حالة الخطاب</th>
+          <th>إجراءات</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-letter>
+        <tr>
+          <td>{{ letter.id }}</td>
+          <td>{{ letter.date }}</td>
+          <td>{{ letter.sender }}</td>
+          <td>{{ letter.internalDepartment }}</td>
+          <td>
+            <p-tag
+              [severity]="getSeverity(letter.status)"
+              [value]="letter.status"
+            ></p-tag>
+          </td>
+          <td>
+            <button
+              pButton
+              icon="pi pi-eye"
+              class="p-button-info p-button-sm"
+              [routerLink]="['archiveViewLetter', letter.id]"
+            ></button>
+            <button
+              pButton
+              icon="pi pi-download"
+              class="p-button-success p-button-sm mt-2 md:mt-0 md:mr-2"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <!-- No Results Message -->
+  <div class="text-center" *ngIf="searchResults.length === 0">
+    <div class="flex animate-pulse">
+      <div class="ms-4 mt-2 w-full">
+        <p
+          class="h-4 bg-gray-200 rounded-full dark:bg-neutral-700"
+          style="width: 40%"
+        ></p>
+
+        <ul class="mt-5 space-y-3">
+          <li
+            class="w-full h-4 bg-gray-200 rounded-full dark:bg-neutral-700"
+          ></li>
+          <li
+            class="w-full h-4 bg-gray-200 rounded-full dark:bg-neutral-700"
+          ></li>
+          <li
+            class="w-full h-4 bg-gray-200 rounded-full dark:bg-neutral-700"
+          ></li>
+          <li
+            class="w-full h-4 bg-gray-200 rounded-full dark:bg-neutral-700"
+          ></li>
+          <li
+            class="w-full h-4 bg-gray-200 rounded-full dark:bg-neutral-700"
+          ></li>
+          <li
+            class="w-full h-4 bg-gray-200 rounded-full dark:bg-neutral-700"
+          ></li>
+        </ul>
+      </div>
+    </div>
+    <p class="pt-7 text-xl text-gray-700 dark:text-[#e72121] font-bold">
+      لا توجد نتائج مطابقة لمعايير البحث.
+    </p>
   </div>
 </div>
-<!-- <div *ngIf="error">{{ error }}</div> -->
-<!-- <div *ngIf="!data && !error">Loading data...</div> -->

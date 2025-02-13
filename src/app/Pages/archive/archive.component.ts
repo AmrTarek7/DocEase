@@ -1,94 +1,69 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { TagModule } from 'primeng/tag';
-
-interface ExternalEntity {
-  name: string;
-}
-
-interface InternalDepartment {
-  name: string;
-}
-
-interface Attachment {
-  name: string;
-}
-
-export interface Letter {
-  id: number;
-  date: string;
-  sender: string;
-  internalDepartment: string;
-  status: string;
-  content: string;
-  attachments: Attachment[];
-  type: string;
-  sever: string;
-}
-
-export interface Data {
-  externalEntities: ExternalEntity[];
-  internalDepartments: InternalDepartment[];
-  letters: Letter[];
-}
+import { DatePicker } from 'primeng/datepicker';
+import { SelectModule } from 'primeng/select';
+import { LetterjsonService } from '../../service/letterjson.service';
+import {
+  SearchCriteria,
+  ExternalEntity,
+  Letter,
+  InternalDepartment,
+} from '../../interfaces/letters';
 
 @Component({
   selector: 'app-archive',
   imports: [
     FormsModule,
-    InputGroupModule,
-    InputGroupAddonModule,
-    TagModule,
+    DatePicker,
     TableModule,
+    SelectModule,
+    CommonModule,
     InputTextModule,
     ButtonModule,
-    CommonModule,
+    TagModule,
+    RouterModule,
   ],
   templateUrl: './archive.component.html',
 })
 export class ArchiveComponent implements OnInit {
-  data: Data | null = null;
-  error: string | null = null;
+  // تعريف المتغيرات
+  letters: Letter[] = []; // قائمة الخطابات
+  externalEntities: ExternalEntity[] = []; // قائمة الجهات الخارجية
+  internalDepartments: InternalDepartment[] = []; // قائمة الأقسام الداخلية
+  searchCriteria: SearchCriteria = {
+    id: null,
+    sender: null,
+    date: null,
+  }; // معايير البحث
+  searchResults: Letter[] = []; // نتائج البحث
+  isSearchPerformed = false; // متغير لتحديد ما إذا تم إجراء البحث
 
-  constructor(private http: HttpClient, private router: Router) {} // Inject HttpClient
+  constructor(
+    private _LetterjsonService: LetterjsonService,
+    private _router: Router
+  ) {}
 
+  //todo => function to get data from service
   ngOnInit() {
-    this.getData().subscribe(
-      (jsonData) => {
-        this.data = jsonData;
+    this._LetterjsonService.getLettersData().subscribe({
+      next: (data) => {
+        this.letters = data.letters;
+        this.externalEntities = data.externalEntities;
+        this.internalDepartments = data.internalDepartments;
       },
-      (err) => {
-        this.error = 'Error loading data. Please try again later.';
-        console.error(err);
-        this.data = null;
-      }
-    );
+      error: (e) => console.log(e),
+      complete: () => console.log('Complete fetching data'),
+    });
   }
 
-  getData(): Observable<Data> {
-    return this.http.get<Data>('./assets/external.json').pipe(
-      catchError((error) => {
-        console.error('HTTP Error:', error);
-        return of({
-          externalEntities: [],
-          internalDepartments: [],
-          letters: [],
-        });
-      })
-    );
-  }
-
-  // Helper Function for Status Tag
+  // دالة لتحديد شدة الحالة بناءً على حالة الخطاب
   getSeverity(status: string) {
     switch (status) {
       case 'مستلم':
@@ -102,11 +77,38 @@ export class ArchiveComponent implements OnInit {
     }
   }
 
-  // view letter
-  viewLetter(letter: Letter) {
-    this.router.navigate([
-      './home/archive/archiveViewLetter',
-      { id: letter.id },
-    ]);
+  // دالة البحث
+  search() {
+    this.isSearchPerformed = true;
+    const formattedDate = this.searchCriteria.date
+      ? new Date(
+          new Date(this.searchCriteria.date).getTime() -
+            new Date(this.searchCriteria.date).getTimezoneOffset() * 60000
+        )
+          .toISOString()
+          .split('T')[0]
+          .replace(/-/g, '/')
+      : null;
+
+    // تصفية الخطابات بناءً على معايير البحث
+    this.searchResults = this.letters.filter((letter) => {
+      return (
+        // تحقق مما إذا كان رقم الخطاب يطابق معايير البحث أو إذا لم يتم تحديد رقم خطاب في معايير البحث
+        (!this.searchCriteria.id || letter.id === +this.searchCriteria.id) &&
+        // تحقق مما إذا كانت الجهة المرسلة تطابق معايير البحث أو إذا لم يتم تحديد جهة مرسلة في معايير البحث
+        (!this.searchCriteria.sender ||
+          letter.sender === this.searchCriteria.sender.name) &&
+        // تحقق مما إذا كان تاريخ الاستلام يطابق معايير البحث أو إذا لم يتم تحديد تاريخ في معايير البحث
+        (!formattedDate || letter.date === formattedDate)
+      );
+    });
+    console.log(this.searchResults);
   }
+
+  // viewLetter(letter: Letter) {
+  //   this._router.navigate(['./home/archive/archiveViewLetter',{ id: letter.id },]);
+  // }
+  // viewLetter(letter: Letter) {
+  //   this._router.navigateByUrl(`./home/archive/archiveViewLetter/${letter.id}`);
+  // }
 }
