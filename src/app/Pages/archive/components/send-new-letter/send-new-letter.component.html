@@ -1,8 +1,8 @@
 <form [formGroup]="letterForm" class="card rounded-lg shadow-md" dir="rtl">
-  <h2 class="text-xl font-bold mb-4">إرسال خطاب جديد</h2>
+  <h2 class="text-xl font-bold mb-4 pr-14">إرسال خطاب جديد</h2>
 
   <!-- Sender Field -->
-  <div class="mb-4">
+  <div class="mb-4 pr-14">
     <label class="text-xl mb-2 block"><strong>الجهة المرسلة</strong></label>
     <p-select
       [options]="externalEntities"
@@ -10,7 +10,7 @@
       optionLabel="name"
       placeholder="اختر الجهة المرسلة"
       class="w-full"
-    />
+    ></p-select>
     <div
       *ngIf="
         letterForm.get('selectedSender')?.invalid &&
@@ -22,31 +22,155 @@
     </div>
   </div>
 
-  <!-- Internal Department Field -->
-  <div class="mb-4">
-    <label class="text-xl mb-2 block"
-      ><strong>الجهة الداخلية المستهدفة</strong></label
-    >
+  <!-- Communication Type Field -->
+  <div class="mb-4 pr-14">
+    <label class="text-xl mb-2 block"><strong>نوع المراسلة</strong></label>
     <p-select
-      [options]="internalDepartments"
-      formControlName="selectedDepartment"
+      [options]="communicationTypes"
+      formControlName="communicationType"
       optionLabel="name"
-      placeholder="اختر الجهة الداخلية"
+      placeholder="اختر نوع المراسلة"
       class="w-full"
-    />
+    ></p-select>
     <div
       *ngIf="
-        letterForm.get('selectedDepartment')?.invalid &&
-        letterForm.get('selectedDepartment')?.touched
+        letterForm.get('communicationType')?.invalid &&
+        letterForm.get('communicationType')?.touched
       "
       class="text-red-500"
     >
-      يرجى اختيار الجهة الداخلية.
+      يرجى اختيار نوع المراسلة.
+    </div>
+  </div>
+
+  <!-- Letter Type Field -->
+  <div class="mb-4 pr-14">
+    <label class="text-xl mb-2 block"><strong>نوع الخطاب</strong></label>
+    <p-select
+      [options]="letterTypes"
+      formControlName="letterType"
+      optionLabel="name"
+      placeholder="اختر نوع الخطاب"
+      class="w-full"
+    ></p-select>
+    <div
+      *ngIf="
+        letterForm.get('letterType')?.invalid &&
+        letterForm.get('letterType')?.touched
+      "
+      class="text-red-500"
+    >
+      يرجى اختيار نوع الخطاب.
+    </div>
+  </div>
+
+  <!-- Importance Level Field -->
+  <div class="mb-4 pr-14">
+    <label class="text-xl mb-2 block"><strong>درجة الأهمية</strong></label>
+    <p-select
+      [options]="importanceLevels"
+      formControlName="importanceLevel"
+      optionLabel="name"
+      placeholder="اختر درجة الأهمية"
+      class="w-full"
+    ></p-select>
+    <div
+      *ngIf="
+        letterForm.get('importanceLevel')?.invalid &&
+        letterForm.get('importanceLevel')?.touched
+      "
+      class="text-red-500"
+    >
+      يرجى اختيار درجة الأهمية.
+    </div>
+  </div>
+
+  <!-- Internal Department Fields -->
+  <div class="mb-4 pr-14">
+    <label class="text-xl mb-2 block"
+      ><strong>رقم وارد (الجهة الداخلية)</strong></label
+    >
+    <p-inputnumber
+      formControlName="internalIncomingNumber"
+      mode="decimal"
+      inputId="withoutgrouping"
+      [useGrouping]="false"
+    />
+    <div
+      *ngIf="
+        letterForm.get('internalIncomingNumber')?.invalid &&
+        letterForm.get('internalIncomingNumber')?.touched
+      "
+      class="text-red-500"
+    >
+      يرجى إدخال رقم الوارد.
+    </div>
+  </div>
+
+  <div class="mb-4 pr-14">
+    <label class="text-xl mb-2 block"
+      ><strong>تاريخ وارد (الجهة الداخلية)</strong></label
+    >
+    <p-datepicker
+      formControlName="internalIncomingDate"
+      dateFormat="dd/mm/yy"
+      class="w-full"
+    ></p-datepicker>
+    <div
+      *ngIf="
+        letterForm.get('internalIncomingDate')?.invalid &&
+        letterForm.get('internalIncomingDate')?.touched
+      "
+      class="text-red-500"
+    >
+      يرجى إدخال تاريخ الوارد.
+    </div>
+  </div>
+
+  <!-- External Department Fields -->
+  <div class="mb-4 pr-14">
+    <label class="text-xl mb-2 block"
+      ><strong>رقم وارد (الجهة الخارجية)</strong></label
+    >
+    <p-inputnumber
+      formControlName="externalIncomingNumber"
+      mode="decimal"
+      inputId="withoutgrouping"
+      [useGrouping]="false"
+    />
+    <div
+      *ngIf="
+        letterForm.get('externalIncomingNumber')?.invalid &&
+        letterForm.get('externalIncomingNumber')?.touched
+      "
+      class="text-red-500"
+    >
+      يرجى إدخال رقم الوارد.
+    </div>
+  </div>
+
+  <div class="mb-4 pr-14">
+    <label class="text-xl mb-2 block"
+      ><strong>تاريخ وارد (الجهة الخارجية)</strong></label
+    >
+    <p-datepicker
+      formControlName="externalIncomingDate"
+      dateFormat="dd/mm/yy"
+      class="w-full"
+    ></p-datepicker>
+    <div
+      *ngIf="
+        letterForm.get('externalIncomingDate')?.invalid &&
+        letterForm.get('externalIncomingDate')?.touched
+      "
+      class="text-red-500"
+    >
+      يرجى إدخال تاريخ الوارد.
     </div>
   </div>
 
   <!-- Letter Details Field -->
-  <div class="mb-4">
+  <div class="mb-4 pr-14">
     <label class="text-xl mb-2 block"><strong>تفاصيل الخطاب</strong></label>
     <textarea
       rows="5"
@@ -67,7 +191,7 @@
   </div>
 
   <!-- Attachments Field -->
-  <div class="mb-4">
+  <div class="mb-4 pr-14">
     <label class="text-xl mb-2 block"><strong>المرفقات</strong></label>
     <p-toast></p-toast>
     <p-fileupload
@@ -95,84 +219,7 @@
   </div>
 
   <!-- Submit Button -->
-  <button
-    pButton
-    icon="pi pi-send"
-    label="إرسال الخطاب"
-    class="p-button-primary w-full mt-5"
-    (click)="onSubmit()"
-  ></button>
-</form>
-
-<!-- <form class="card rounded-lg shadow-md" dir="rtl">
-  <h2 class="text-xl font-bold mb-4">إرسال خطاب جديد</h2>
-
-  <div class="mb-4">
-    <label class="text-xl mb-2 block"><strong>الجهة المرسلة</strong></label>
-    <p-select
-      [options]="externalEntities"
-      [(ngModel)]="selectedSender"
-      name="externalEntities"
-      optionLabel="name"
-      placeholder="اختر الجهة المرسلة"
-      class="w-full"
-    />
-  </div>
-
-  <div class="mb-4">
-    <label class="text-xl mb-2 block">
-      <strong>الجهة الداخلية المستهدفة</strong>
-    </label>
-    <p-select
-      [options]="internalDepartments"
-      [(ngModel)]="selectedDepartment"
-      name="internalDepartments"
-      optionLabel="name"
-      placeholder="اختر الجهة الداخلية"
-      class="w-full"
-    />
-  </div>
-
-  <div class="mb-4">
-    <label class="text-xl mb-2 block"><strong>تفاصيل الخطاب</strong></label>
-
-    <textarea
-      rows="5"
-      cols="30"
-      pTextarea
-      class="w-full"
-      [(ngModel)]="letterDetails"
-      name="letterDetails"
-    ></textarea>
-  </div>
-
-  <div class="mb-4">
-    <label class="text-xl mb-2 block"><strong>المرفقات</strong></label>
-
-    <p-toast />
-    <p-fileupload
-      name="demo[]"
-      url="https://www.primefaces.org/cdn/api/upload.php"
-      (onUpload)="onUpload($event)"
-      [multiple]="true"
-      accept="image/*"
-      maxFileSize="1000000"
-      mode="advanced"
-    >
-      <ng-template #empty>
-        <div class="dark:text-red-500">
-          Drag and drop files to here to upload.
-        </div>
-      </ng-template>
-      <ng-template #content>
-        <ul *ngIf="uploadedFiles.length">
-          <li *ngFor="let file of uploadedFiles">
-            {{ file.name }} - {{ file.size }} bytes
-          </li>
-        </ul>
-      </ng-template>
-    </p-fileupload>
-
+  <div class="pr-14">
     <button
       pButton
       icon="pi pi-send"
@@ -181,4 +228,4 @@
       (click)="onSubmit()"
     ></button>
   </div>
-</form> -->
+</form>

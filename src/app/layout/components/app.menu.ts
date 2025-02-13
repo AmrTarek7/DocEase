@@ -52,12 +52,12 @@ export class AppMenu {
               {
                 label: 'sendNewLetter',
                 icon: 'pi pi-send',
-                routerLink: ['/home/sendNewLetter'],
+                routerLink: ['/home/archive/sendNewLetter'],
               },
               {
-                label: 'Access Denied',
-                icon: 'pi pi-fw pi-lock',
-                routerLink: ['/auth/access'],
+                label: 'Letter Search',
+                icon: 'pi pi-search',
+                routerLink: ['/home/archive/searchArchiveLetter'],
               },
             ],
           },

@@ -104,6 +104,9 @@ export class ArchiveComponent implements OnInit {
 
   // view letter
   viewLetter(letter: Letter) {
-    this.router.navigate(['./home/archiveViewLetter', { id: letter.id }]);
+    this.router.navigate([
+      './home/archive/archiveViewLetter',
+      { id: letter.id },
+    ]);
   }
 }

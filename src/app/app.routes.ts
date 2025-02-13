@@ -10,6 +10,7 @@ import { ArchiveViewLetterComponent } from './Pages/archive/components/archiveVi
 import { SendNewLetterComponent } from './Pages/archive/components/send-new-letter/send-new-letter.component';
 import { CEOComponent } from './Pages/ceo/ceo.component';
 import { LettComponent } from './Pages/lett/lett.component';
+import { SearchArchiveLetterComponent } from './Pages/archive/components/search-archive-letter/search-archive-letter.component';
 
 export const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -34,20 +35,16 @@ export const appRoutes: Routes = [
         component: ArchiveComponent,
       },
       {
-        path: 'archiveViewLetter',
+        path: 'archive/archiveViewLetter',
         component: ArchiveViewLetterComponent,
       },
       {
-        path: 'lett',
-        component: LettComponent,
-      },
-      {
-        path: 'sendNewLetter',
+        path: 'archive/sendNewLetter',
         component: SendNewLetterComponent,
       },
       {
-        path: 'ceo',
-        component: CEOComponent,
+        path: 'archive/searchArchiveLetter',
+        component: SearchArchiveLetterComponent,
       },
     ],
   },
